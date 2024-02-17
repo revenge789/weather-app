@@ -1,11 +1,11 @@
 import React from 'react'
 
-export default function Header() {
+export default function Header({location, date}) {
   return (
     <>
-        <h2 className=" text-xl text-white">00/00/00</h2>
-        <h2 className=" text-xl text-white">00:00</h2>
-        <h1 className=" text-xl text-white">Latitude, Longitude</h1>
+        <h2 className=" text-xl text-white">Date: {date.toDateString()}</h2>
+        <h1 className=" text-xl text-white">Latitude: {location.latitude}</h1>
+        <h1 className=" text-xl text-white">Longitude: {location.longitude}</h1>
     </>
   )
 }
