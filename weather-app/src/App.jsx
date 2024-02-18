@@ -84,14 +84,14 @@ function App() {
   return (
     <>
       <div className="bg-b1 h-screen flex flex-col justify-center items-center">
-        <div className ="w-1/2  h-auto text-center">
+        <div className ="w-1/2 h-auto text-center my-4">
           <Header location={location} date={date}/>
         </div>
-        <div className="bg-b2 h-3/4 w-1/2 rounded-xl p-2">
+        <div className="bg-b2 h-3/4 w-1/2 rounded-xl p-2 min-w-[340px] max-w-[490px] min-h-[610px] border-white border-4">
           <CurrentWeather currentWeather={currentWeather}/>
           <SevenDayForecast forecast={forecast}/>
         </div>
-        <div className="mt-5">
+        <div className="mt-3">
           <button onClick={uploadLocation} className="bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow">Set Location</button>
         </div>
       </div>
