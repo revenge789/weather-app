@@ -2,27 +2,23 @@ import { useEffect, useState } from "react"
 import CurrentWeather from "./CurrentWeather"
 import Header from "./Header"
 import SevenDayForecast from "./SevenDayForecast"
-import { fetchWeatherApi } from "openmeteo"
+import { getWeather } from "./weather"
+
 
 const URL = "https://api.open-meteo.com/v1/gfs";
 function App() {
   const [location, setLocation] = useState({
-    latitude: 52.34,
-    longitude: 23.53,
+    latitude: 10,
+    longitude: 20,
   })
 
-  const params = {
-    "latitude": 52.52,
-	  "longitude": 13.41,
-	  "current": ["temperature_2m", "precipitation"],
-	  "daily": ["temperature_2m_max", "temperature_2m_min"],
-	  "timezone": "GMT"
-  }
-
   const [date, setDate] = useState(new Date());
+
   const [currentWeather, setCurrentWeather] = useState({
-    temperature: 67,
-    precipitation: 36
+    temp: 0,
+    minTemp: 0,
+    maxTemp: 0,
+    description: 'N/A'
   })
 
   const [forecast, setForecast] = useState(
@@ -42,17 +38,16 @@ function App() {
   ])
 
   useEffect(() => {
-    fetchWeatherApi(URL, params)
-    .then(responses => {return responses[0]})
-    .then((response)=>{})
-  },[date])
+    getWeather(location.latitude, location.longitude, Intl.DateTimeFormat().resolvedOptions().timeZone)
+    .then((response) => {console.log(response)})
+  },[])
 
   useEffect(() => {
     const id = setInterval(()=>{
       const date = new Date()
       console.log(date)
       setDate(date)
-    } , 60000)
+    } , 1000)
     return ()=>{clearInterval(id)}
   }, [])
 
