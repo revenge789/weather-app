@@ -11,7 +11,7 @@ export function getWeather(lan, lon, timezone) {
     },
     }
     ).then(({data}) => {
-        return {
+        return{
             current: parseCurrentWeather(data),
             daily: parseDailyWeather(data)
         }
@@ -52,6 +52,8 @@ function parseDailyWeather({daily})
 {
     return daily.time.map((time, index) => {
         return {
+            index,
+            time: time*1000,
             iconCode: Math.round(daily.weather_code[index]),
             precip: Math.round(daily.precipitation_sum[index]*100)/100,
             highTemp: Math.round(daily.temperature_2m_max[index]),

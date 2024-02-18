@@ -6,7 +6,7 @@ export default function ({forecast}) {
     <>
         <div className = "h-3/5 w-full bg-b4 flex flex-col items-center justify-evenly">
           {forecast.map(dailyForecast =>{
-            return(<DailyForecast dailyForecast={dailyForecast} key={dailyForecast.date} />)
+            return(<DailyForecast dailyForecast={dailyForecast} key={dailyForecast.index} />)
           })}
         </div>
     </>

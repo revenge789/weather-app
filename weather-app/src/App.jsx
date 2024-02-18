@@ -16,38 +16,54 @@ function App() {
 
   const [currentWeather, setCurrentWeather] = useState({
     temp: 0,
-    minTemp: 0,
-    maxTemp: 0,
-    description: 'N/A'
+    apparentTemp: 0,
+    highTemp: 0,
+    lowTemp: 0,
+    windSpeed: 0,
+    feelsLikeHumidity: 0,
+    precip: 0,
+    iconCode: 0,
   })
 
   const [forecast, setForecast] = useState(
   [ 
     {
-      date: '01/12/12',
-      max: 34,
-      min: 12,
-      temperature: 32
+      time:1000,
+      index:0,
+      iconCode: 0,
+      highTemp: 0,
+      lowTemp: 0,
+      precip: 0,
     },
     {
-      date: '01/13/12',
-      max: 3321,
-      min: 2,
-      temperature: 934
+      time:2000,
+      index:1,
+      iconCode: 0,
+      highTemp: 0,
+      lowTemp: 0,
+      precip: 0,
     }
   ])
 
   useEffect(() => {
     getWeather(location.latitude, location.longitude, Intl.DateTimeFormat().resolvedOptions().timeZone)
-    .then((response) => {console.log(response)})
-  },[])
+    .then((response) => {
+      console.log(response)
+      setCurrentWeather(response.current)
+      setForecast(response.daily)
+    })
+    .catch(e => {
+      console.log(e)
+      alert('Error with weather.')
+    })
+  },[location])
 
   useEffect(() => {
     const id = setInterval(()=>{
       const date = new Date()
       console.log(date)
       setDate(date)
-    } , 1000)
+    } , 30000)
     return ()=>{clearInterval(id)}
   }, [])
 
@@ -68,7 +84,7 @@ function App() {
   return (
     <>
       <div className="bg-b1 h-screen flex flex-col justify-center items-center">
-        <div className ="w-1/2 bg-b3 h-auto text-center">
+        <div className ="w-1/2  h-auto text-center">
           <Header location={location} date={date}/>
         </div>
         <div className="bg-b2 h-3/4 w-1/2 rounded-xl p-2">
